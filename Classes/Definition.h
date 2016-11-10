@@ -7,4 +7,9 @@
 #define PLAYER_WALK_FRAME_TIME 0.01
 #define PLAYER_WALK_SPEED_PER_FRAME_TIME 3
 
+#define MAP_WIDTH 15
+#define MAP_HEIGHT 10
+#define TILES_WIDTH 22
+#define TILES_HEIGHT 15
+
 #endif // __DEFINITION_H__

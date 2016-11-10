@@ -21,6 +21,7 @@ bool HelloWorld::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
+	mapGrid.MakeMap(this);
 	player.SpawnPlayer(this);
 
 	auto Klistener = EventListenerKeyboard::create();

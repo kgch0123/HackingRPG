@@ -3,6 +3,8 @@
 
 #include "cocos2d.h"
 #include "Player.h"
+#include "MapGrid.h"
+
 
 class HelloWorld : public cocos2d::Layer
 {
@@ -22,6 +24,7 @@ private:
 	void RightWalking(float dt);
 
 	Player player;
+	MapGrid mapGrid;
 };
 
 #endif // __HELLOWORLD_SCENE_H__
