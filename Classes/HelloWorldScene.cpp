@@ -23,6 +23,7 @@ bool HelloWorld::init()
 
 	mapGrid.MakeMap(this);
 	player.SpawnPlayer(this);
+	status = new Status(this);
 
 	auto Klistener = EventListenerKeyboard::create();
 	Klistener->onKeyPressed = CC_CALLBACK_2(HelloWorld::onKeyPressed, this);
@@ -53,6 +54,7 @@ void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::
 		player.RightWalkAnimation();
 		break;
 	}
+	this->schedule(schedule_selector(HelloWorld::LevelUp), PLAYER_WALK_FRAME_TIME);
 }
 
 void HelloWorld::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
@@ -72,6 +74,7 @@ void HelloWorld::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d:
 		this->unschedule(schedule_selector(HelloWorld::RightWalking));
 		break;
 	}
+	this->unschedule(schedule_selector(HelloWorld::LevelUp));
 }
 
 void HelloWorld::UpWalking(float dt)
@@ -92,4 +95,10 @@ void HelloWorld::DownWalking(float dt)
 void HelloWorld::RightWalking(float dt)
 {
 	player.RightWalking(this);
+}
+
+
+void HelloWorld::LevelUp(float dt)
+{
+	status->LevelUp();
 }

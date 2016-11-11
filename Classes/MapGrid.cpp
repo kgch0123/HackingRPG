@@ -11,7 +11,8 @@ MapGrid::MapGrid()
 }
 
 void MapGrid::MakeMap(cocos2d::Layer *layer)
-{	char buf[MAP_WIDTH*MAP_HEIGHT*2 + 1] = { 0 };
+{	
+	char buf[MAP_WIDTH*MAP_HEIGHT*2 + 1] = { 0 };
 
 	FILE *fp = fopen("./MapData", "r");
 

@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "Player.h"
 #include "MapGrid.h"
+#include "Status.h"
 
 
 class HelloWorld : public cocos2d::Layer
@@ -22,9 +23,11 @@ private:
 	void LeftWalking(float dt);
 	void DownWalking(float dt);
 	void RightWalking(float dt);
+	void LevelUp(float dt);
 
 	Player player;
 	MapGrid mapGrid;
+	Status* status;
 };
 
 #endif // __HELLOWORLD_SCENE_H__
