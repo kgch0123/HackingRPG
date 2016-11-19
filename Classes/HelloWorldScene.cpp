@@ -1,5 +1,6 @@
 #include "HelloWorldScene.h"
 #include "Definition.h"
+#include "ShopScene.h"
 
 USING_NS_CC;
 
@@ -29,6 +30,13 @@ bool HelloWorld::init()
 	Klistener->onKeyPressed = CC_CALLBACK_2(HelloWorld::onKeyPressed, this);
 	Klistener->onKeyReleased = CC_CALLBACK_2(HelloWorld::onKeyReleased, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(Klistener, this);
+
+	auto shopItem = MenuItemFont::create("Shop", CC_CALLBACK_1(HelloWorld::GoToShopScene, this));
+	shopItem->setPosition(Vec2(origin.x + 40, origin.y + visibleSize.height - 20));
+
+	auto menu = Menu::create(shopItem, NULL);
+	menu->setPosition(origin);
+	this->addChild(menu);
 
     return true;
 }
@@ -101,4 +109,11 @@ void HelloWorld::RightWalking(float dt)
 void HelloWorld::LevelUp(float dt)
 {
 	status->LevelUp();
+}
+
+void HelloWorld::GoToShopScene(cocos2d::Ref *pSender)
+{
+	auto scene = Shop::createScene();
+
+	Director::getInstance()->pushScene(scene);
 }

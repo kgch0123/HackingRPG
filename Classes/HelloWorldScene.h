@@ -25,6 +25,8 @@ private:
 	void RightWalking(float dt);
 	void LevelUp(float dt);
 
+	void GoToShopScene(cocos2d::Ref *pSender);
+
 	Player player;
 	MapGrid mapGrid;
 	Status* status;

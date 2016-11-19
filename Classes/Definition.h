@@ -12,4 +12,7 @@
 #define TILES_WIDTH 22
 #define TILES_HEIGHT 15
 
+#define BUY 0
+#define SELL 1
+
 #endif // __DEFINITION_H__
