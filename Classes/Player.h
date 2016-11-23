@@ -2,6 +2,7 @@
 #define __PLAYER_H__
 
 #include "cocos2d.h"
+#include "MapGrid.h"
 
 class Player
 {
@@ -16,6 +17,7 @@ public:
 	void LeftWalkAnimation();
 	void DownWalkAnimation();
 	void RightWalkAnimation();
+	void setMap(MapGrid mapGrid);
 private:
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;

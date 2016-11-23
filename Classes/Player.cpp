@@ -3,6 +3,15 @@
 
 USING_NS_CC;
 
+MapGrid grid;
+int map[MAP_WIDTH][MAP_HEIGHT];
+
+void Player::setMap(MapGrid mapGrid)
+{
+	grid = mapGrid;
+	grid.getMap(map);
+}
+
 Player::Player()
 {
     visibleSize = Director::getInstance()->getVisibleSize();
@@ -33,23 +42,35 @@ void Player::SpawnPlayer(cocos2d::Layer *layer)
 
 void Player::UpWalking(cocos2d::Layer *layer)
 {
-	playerSprite->setPosition(playerSprite->getPositionX(), playerSprite->getPositionY() + PLAYER_WALK_SPEED_PER_FRAME_TIME);
+	int x = (playerSprite->getPositionX()) / GRID_SIZE;
+	int y = (playerSprite->getPositionY() + PLAYER_WALK_SPEED_PER_FRAME_TIME) / GRID_SIZE + 1;
+	if(!map[x][y])
+		playerSprite->setPosition(playerSprite->getPositionX(), playerSprite->getPositionY() + PLAYER_WALK_SPEED_PER_FRAME_TIME);
 }
 
 void Player::LeftWalking(cocos2d::Layer *layer)
 {
-	playerSprite->setPosition(playerSprite->getPositionX() - PLAYER_WALK_SPEED_PER_FRAME_TIME, playerSprite->getPositionY());
+	int x = (playerSprite->getPositionX() - PLAYER_WALK_SPEED_PER_FRAME_TIME) / GRID_SIZE;
+	int y = (playerSprite->getPositionY()) / GRID_SIZE;
+	if (!map[x][y])
+		playerSprite->setPosition(playerSprite->getPositionX() - PLAYER_WALK_SPEED_PER_FRAME_TIME, playerSprite->getPositionY());
 	
 }
 
 void Player::DownWalking(cocos2d::Layer *layer)
 {
-	playerSprite->setPosition(playerSprite->getPositionX(), playerSprite->getPositionY() - PLAYER_WALK_SPEED_PER_FRAME_TIME);
+	int x = (playerSprite->getPositionX()) / GRID_SIZE;
+	int y = (playerSprite->getPositionY() - PLAYER_WALK_SPEED_PER_FRAME_TIME) / GRID_SIZE - 1;
+	if (!map[x][y])
+		playerSprite->setPosition(playerSprite->getPositionX(), playerSprite->getPositionY() - PLAYER_WALK_SPEED_PER_FRAME_TIME);
 }
 
 void Player::RightWalking(cocos2d::Layer *layer)
 {
-	playerSprite->setPosition(playerSprite->getPositionX() + PLAYER_WALK_SPEED_PER_FRAME_TIME, playerSprite->getPositionY());
+	int x = (playerSprite->getPositionX() + PLAYER_WALK_SPEED_PER_FRAME_TIME) / GRID_SIZE;
+	int y = (playerSprite->getPositionY()) / GRID_SIZE;
+	if (!map[x][y])
+		playerSprite->setPosition(playerSprite->getPositionX() + PLAYER_WALK_SPEED_PER_FRAME_TIME, playerSprite->getPositionY());
 }
 
 

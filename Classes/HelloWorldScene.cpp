@@ -24,6 +24,7 @@ bool HelloWorld::init()
 
 	mapGrid.MakeMap(this);
 	player.SpawnPlayer(this);
+	player.setMap(mapGrid);
 	status = new Status(this);
 
 	auto Klistener = EventListenerKeyboard::create();

@@ -28,4 +28,17 @@
 *.out
 *.app
 
+*.suo
+*.res
+*.ttf
+*.exp
+*.ilk
+*.log
+*.pdb
+*.tlog
+*.cache
+*.db
+*.idb
+*.opendb
+
 cocos2d/
