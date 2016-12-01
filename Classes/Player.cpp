@@ -38,7 +38,9 @@ void Player::SpawnMonster(cocos2d::Layer *layer)
 	playerSprite = Sprite::create("Sprite_claudius_walk.png", Rect(0, 0, GRID_SIZE, GRID_SIZE * 2));
 
 	srand(time(NULL));
-	playerSprite->setPosition(Vec2(rand()%MAP_WIDTH + visibleSize.width / 2, rand()%MAP_HEIGHT + visibleSize.height / 2));
+	int x = rand() % MAP_WIDTH;
+	int y = rand() % MAP_HEIGHT;
+	playerSprite->setPosition(Vec2(x + visibleSize.width / 2, y + visibleSize.height / 2));
 	layer->addChild(playerSprite);
 }
 

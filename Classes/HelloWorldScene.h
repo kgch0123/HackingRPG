@@ -13,9 +13,6 @@ public:
     static cocos2d::Scene* createScene();
 
     virtual bool init();
-
-	void monsterLocation();
-	void monsterMove();
     
     CREATE_FUNC(HelloWorld);
 
@@ -28,6 +25,7 @@ private:
 	void RightWalking(float dt);
 	void LevelUp(float dt);
 	void Save(float dt);
+	void monsterMove(float dt);
 
 	void GoToShopScene(cocos2d::Ref *pSender);
 

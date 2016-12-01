@@ -7,7 +7,9 @@ Status::Status(cocos2d::Layer *layer)
 {
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
-	level = 0;
+	FILE *fi = fopen("game.sav", "r");
+	fscanf(fi, "%d", &level);
+	level = level ^ 12345678;
 
 	levelTitleLabel = Label::createWithTTF("Level", "UbuntuMono-B.ttf", 35);
 	levelTitleLabel->setPosition(Vec2(origin.x + visibleSize.width - levelTitleLabel->getContentSize().width,

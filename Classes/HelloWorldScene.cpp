@@ -42,13 +42,28 @@ bool HelloWorld::init()
 	menu->setPosition(origin);
 	this->addChild(menu);
 
+	this->schedule(schedule_selector(HelloWorld::monsterMove), PLAYER_WALK_FRAME_TIME*2);
+
     return true;
 }
 
-void HelloWorld::monsterLocation(){
-}
-
-void HelloWorld::monsterMove() {
+void HelloWorld::monsterMove(float dt) {
+	srand(time(NULL));
+	int n = rand() % 4 + 1;
+	switch (n) {
+	case 1:
+		monster.UpWalking(this);
+		break;
+	case 2:
+		monster.DownWalking(this);
+		break;
+	case 3:
+		monster.LeftWalking(this);
+		break;
+	case 4:
+		monster.RightWalking(this);
+		break;
+	}
 }
 
 void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
@@ -121,23 +136,6 @@ void HelloWorld::RightWalking(float dt)
 void HelloWorld::LevelUp(float dt)
 {
 	status->LevelUp();
-	
-	srand(time(NULL));
-	int n = rand() % 4 + 1;
-	switch (n) {
-	case 1:
-		monster.UpWalking(this);
-		break;
-	case 2:
-		monster.DownWalking(this);
-		break;
-	case 3:
-		monster.LeftWalking(this);
-		break;
-	case 4:
-		monster.RightWalking(this);
-		break;
-	}
 }
 
 void HelloWorld::Save(float dt) {
