@@ -45,3 +45,10 @@ void Status::HideStatus(cocos2d::Layer *layer)
 {
 
 }
+
+void Status::SaveAllData() {
+	FILE *fo = fopen("game.sav","w");
+	int save_level = level ^ 12345678;
+	fprintf(fo,"%d\n", save_level);
+	fclose(fo);
+}

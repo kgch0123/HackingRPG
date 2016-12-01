@@ -1,6 +1,7 @@
 #include "HelloWorldScene.h"
 #include "Definition.h"
 #include "ShopScene.h"
+#include<stdlib.h>
 
 USING_NS_CC;
 
@@ -24,7 +25,9 @@ bool HelloWorld::init()
 
 	mapGrid.MakeMap(this);
 	player.SpawnPlayer(this);
+	monster.SpawnMonster(this);
 	player.setMap(mapGrid);
+	monster.setMap(mapGrid);
 	status = new Status(this);
 
 	auto Klistener = EventListenerKeyboard::create();
@@ -40,6 +43,12 @@ bool HelloWorld::init()
 	this->addChild(menu);
 
     return true;
+}
+
+void HelloWorld::monsterLocation(){
+}
+
+void HelloWorld::monsterMove() {
 }
 
 void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
@@ -62,6 +71,8 @@ void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::
 		this->schedule(schedule_selector(HelloWorld::RightWalking), PLAYER_WALK_FRAME_TIME);
 		player.RightWalkAnimation();
 		break;
+	case cocos2d::EventKeyboard::KeyCode::KEY_O:
+		this->schedule(schedule_selector(HelloWorld::Save), PLAYER_WALK_FRAME_TIME);
 	}
 	this->schedule(schedule_selector(HelloWorld::LevelUp), PLAYER_WALK_FRAME_TIME);
 }
@@ -110,6 +121,27 @@ void HelloWorld::RightWalking(float dt)
 void HelloWorld::LevelUp(float dt)
 {
 	status->LevelUp();
+	
+	srand(time(NULL));
+	int n = rand() % 4 + 1;
+	switch (n) {
+	case 1:
+		monster.UpWalking(this);
+		break;
+	case 2:
+		monster.DownWalking(this);
+		break;
+	case 3:
+		monster.LeftWalking(this);
+		break;
+	case 4:
+		monster.RightWalking(this);
+		break;
+	}
+}
+
+void HelloWorld::Save(float dt) {
+	status->SaveAllData();
 }
 
 void HelloWorld::GoToShopScene(cocos2d::Ref *pSender)

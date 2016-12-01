@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Definition.h"
+#include <stdlib.h>
 
 USING_NS_CC;
 
@@ -32,6 +33,15 @@ Player::Player()
 	
 }
 
+void Player::SpawnMonster(cocos2d::Layer *layer)
+{
+	playerSprite = Sprite::create("Sprite_claudius_walk.png", Rect(0, 0, GRID_SIZE, GRID_SIZE * 2));
+
+	srand(time(NULL));
+	playerSprite->setPosition(Vec2(rand()%MAP_WIDTH + visibleSize.width / 2, rand()%MAP_HEIGHT + visibleSize.height / 2));
+	layer->addChild(playerSprite);
+}
+
 void Player::SpawnPlayer(cocos2d::Layer *layer)
 {
 	playerSprite = Sprite::create("Sprite_claudius_walk.png", Rect(0, 0, GRID_SIZE, GRID_SIZE * 2));
@@ -42,6 +52,7 @@ void Player::SpawnPlayer(cocos2d::Layer *layer)
 
 void Player::UpWalking(cocos2d::Layer *layer)
 {
+	// GRID_SIZE와 Player Size를 고려해주지 않으면 제대로 장애물에 대해 처리가 되지 않음.
 	int x = (playerSprite->getPositionX()) / GRID_SIZE;
 	int y = (playerSprite->getPositionY() + PLAYER_WALK_SPEED_PER_FRAME_TIME) / GRID_SIZE + 1;
 	if(!map[x][y])

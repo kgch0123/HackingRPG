@@ -9,6 +9,7 @@ class Player
 public:
 	Player();
 	void SpawnPlayer(cocos2d::Layer *layer);
+	void SpawnMonster(cocos2d::Layer *layer);
 	void UpWalking(cocos2d::Layer *layer);
 	void LeftWalking(cocos2d::Layer *layer);
 	void DownWalking(cocos2d::Layer *layer);

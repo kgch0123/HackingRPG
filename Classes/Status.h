@@ -10,6 +10,7 @@ public:
 	void LevelUp();
 	void ShowStatus(cocos2d::Layer *layer);
 	void HideStatus(cocos2d::Layer *layer);
+	void SaveAllData();
 private:
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
