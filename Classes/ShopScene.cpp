@@ -21,15 +21,35 @@ bool Shop::init()
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
 
+	money = 10000;
+	exchangeLottery();
+
 	auto backItem = MenuItemFont::create("X", CC_CALLBACK_1(Shop::BackToScene, this));
 	backItem->setPosition(Vec2(origin.x + visibleSize.width - 20, origin.y + visibleSize.height - 20));
 
 	auto enterItem = MenuItemFont::create("enter", CC_CALLBACK_1(Shop::enterMessage, this));
 	enterItem->setPosition(Vec2(origin.x + visibleSize.width - 40, origin.y + 80));
 
-	auto menu = Menu::create(backItem, enterItem, NULL);
+	auto randomLotteryItem = MenuItemFont::create("Exchange\nLottery", CC_CALLBACK_1(Shop::MexchangeLottery, this));
+	randomLotteryItem->setPosition(Vec2(origin.x + visibleSize.width - 70, origin.y + 160));
+
+	auto openLotteryItem = MenuItemFont::create("open\nLottery", CC_CALLBACK_1(Shop::MopenLottery, this));
+	openLotteryItem->setPosition(Vec2(origin.x + visibleSize.width - 70, origin.y + 240));
+
+	auto menu = Menu::create(backItem, enterItem, randomLotteryItem, openLotteryItem, NULL);
 	menu->setPosition(origin);
 	this->addChild(menu);
+
+	moneyLabel = Label::createWithTTF("Money", "HACKED.ttf", 20);
+	moneyLabel->setPosition(Vec2(origin.x + visibleSize.width - 70, origin.y + 300));
+	moneyLabel->setColor(Color3B::RED);
+	this->addChild(moneyLabel);
+
+	__String *moneyString = __String::createWithFormat("%d", money);
+	moneyNumberLabel = Label::createWithTTF(moneyString->getCString(), "HACKED.ttf", 20);
+	moneyNumberLabel->setPosition(Vec2(moneyLabel->getPositionX(), moneyLabel->getPositionY() - 20));
+	moneyNumberLabel->setColor(Color3B::RED);
+	this->addChild(moneyNumberLabel);
 
 	itemLabelName[0] = "POTION";
 	itemLabelName[1] = "LOTTERY";
@@ -119,12 +139,15 @@ void Shop::enterMessage(cocos2d::Ref *pSender)
 		CCLOG("type0 %d", type0);
 		CCLOG("type1 %d", type1);
 		CCLOG("type2 %d", type2);
-		if (type0 == BUY && type1 >= 0 && type2 >= 0)
+		//money가 지불해야 할 양보다 적은지 판단
+		if (type0 == BUY && type1 >= 0 && type2 >= 0 && money - itemPrice[type1] * type2 >= 0)
 		{
+			money -= itemPrice[type1] * type2;
 			number[type1] += type2;
 		}
 		else if (type0 == SELL && type1 >= 0 && type2 >= 0)
 		{
+			money += itemPrice[type1] * type2;
 			number[type1] -= type2;
 		}
 		ShowItemList();
@@ -134,9 +157,52 @@ void Shop::enterMessage(cocos2d::Ref *pSender)
 //아이템 개수 갱신
 void Shop::ShowItemList()
 {
+	__String *moneyString = __String::createWithFormat("%d", money);
+	moneyNumberLabel->setString(moneyString->getCString());
 	for (int i = 0; i < 3; i++)
 	{
 		__String *tempString = __String::createWithFormat("%d", number[i]);
 		numberLabel[i]->setString(tempString->getCString());
+	}
+}
+
+void Shop::MexchangeLottery(cocos2d::Ref *pSender)
+{
+	exchangeLottery();
+}
+
+
+void Shop::MopenLottery(cocos2d::Ref *pSender)
+{
+	openLottery();
+}
+
+void Shop::exchangeLottery()
+{
+	if (number[1] > 0)
+	{
+		float randomValue = CCRANDOM_0_1();
+		if (randomValue > 0.9)
+			lotteryMoney = 100000;
+		else if (randomValue > 0.7)
+			lotteryMoney = 10000;
+		else if (randomValue > 0.5)
+			lotteryMoney = 1000;
+		else
+			lotteryMoney = 5;
+		//랜덤값 확인
+		CCLOG("lotteryMoney : %d", lotteryMoney);
+	}
+	else
+		CCLOG("lotteryMoney : %d not changed", lotteryMoney);
+}
+void Shop::openLottery()
+{
+	if (number[1] > 0)
+	{
+		money += lotteryMoney;
+		number[1]--;
+		ShowItemList();
+		exchangeLottery();
 	}
 }

@@ -24,9 +24,19 @@ private:
 	void BackToScene(cocos2d::Ref *pSender);
 	void enterMessage(cocos2d::Ref *pSender);
 
+	void MexchangeLottery(cocos2d::Ref *pSender);
+	void MopenLottery(cocos2d::Ref *pSender);
+	void exchangeLottery();
+	void openLottery();
+	int lotteryMoney;
+
 	Label* itemLabel[10] = { 0, };
 	char* itemLabelName[10] = { 0, };//아이템 이름
 	int number[10] = { 0, };//아이템 개수
+	int money;//돈
+	Label* moneyLabel;
+	Label* moneyNumberLabel;//돈 표시
+	int itemPrice[10] = {100, 1000, 300,};
 	Label* numberLabel[10] = { 0, };
 	EditBox* editbox;
 };
